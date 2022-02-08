@@ -23,7 +23,7 @@ let
     aarch64-unknown-linux-gnu = let
       crossPkgs = mkCrossPkgs "aarch64-unknown-linux-gnu" "glibc";
     in {
-      rustPackages = [
+      targetPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "aarch64-unknown-linux-gnu" ]; })
         crossPkgs.buildPackages.gcc
       ];
@@ -35,7 +35,7 @@ let
     aarch64-unknown-linux-musl = let
       crossPkgs = mkCrossPkgs "aarch64-unknown-linux-musl" "musl";
     in {
-      rustPackages = [
+      targetPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "aarch64-unknown-linux-musl" ]; })
         crossPkgs.buildPackages.gcc
       ];
@@ -48,7 +48,7 @@ let
     arm-unknown-linux-gnueabihf = let
       crossPkgs = mkCrossPkgs "arm-unknown-linux-gnueabihf" "glibc";
     in {
-      rustPackages = [
+      targetPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "arm-unknown-linux-gnueabihf" ]; })
         crossPkgs.buildPackages.gcc
       ];
@@ -60,7 +60,7 @@ let
     armv7-unknown-linux-gnu = let
       crossPkgs = mkCrossPkgs "armv7l-unknown-linux-gnueabihf" "glibc";
     in {
-      rustPackages = [
+      targetPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "armv7-unknown-linux-gnueabihf" ]; })
         crossPkgs.buildPackages.gcc
       ];
@@ -74,7 +74,7 @@ let
     armv7-unknown-linux-musleabihf = let
       crossPkgs = mkCrossPkgs "armv7l-unknown-linux-musleabihf" "musl";
     in {
-      rustPackages = [
+      targetPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "armv7-unknown-linux-musleabihf" ]; })
         crossPkgs.buildPackages.gcc
       ];
@@ -86,7 +86,7 @@ let
     };
 
     default = {
-      rustPackages = with (pkgs.rustChannelOf { inherit channel; }); [
+      targetPackages = with (pkgs.rustChannelOf { inherit channel; }); [
         rust-std
         rust-src
         rust
@@ -99,7 +99,7 @@ let
   };
 in
 pkgs.mkShell {
-  buildInputs = targets."${target}".rustPackages
+  buildInputs = targets."${target}".targetPackages
   ++ pkgs.lib.optionals cargobins (with pkgs; [
     cargo-audit
     cargo-bloat
