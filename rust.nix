@@ -30,6 +30,7 @@ let
       ];
 
       environment = {
+        CC = "aarch64-unknown-linux-gnu-gcc";
       };
     };
 
@@ -57,6 +58,7 @@ let
       ];
 
       environment = {
+        CC = "arm-unknown-linux-gnueabihf-gcc";
       };
     };
 
