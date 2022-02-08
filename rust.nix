@@ -117,6 +117,12 @@ pkgs.mkShell {
     cargo-outdated
   ]);
 
+  shellHook = ''
+    echo " rustc: ''$(rustc --version)"
+    echo " cargo: ''$(cargo --version)"
+    echo "... have fun!"
+  '';
+
   LIBCLANG_PATH   = "${pkgs.llvmPackages.libclang}/lib";
 } // targets."${target}".environment
 
