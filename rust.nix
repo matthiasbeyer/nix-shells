@@ -10,12 +10,6 @@ let
 
   pkgs = import <nixpkgs-unstable> { overlays = [ moz_overlay ]; };
 
-  rustChannelAllTargets = pkgs.rustChannels.stable.rust.override {
-    targets = [
-      "armv7-unknown-linux-gnueabihf"
-    ];
-  };
-
   targets = {
     aarch64-unknown-linux-gnu = let
       crossPkgs = import <nixpkgs> {
