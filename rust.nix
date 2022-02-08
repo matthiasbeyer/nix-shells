@@ -120,7 +120,16 @@ pkgs.mkShell {
     echo " rustc: ''$(rustc --version)"
     echo " cargo: ''$(cargo --version)"
     echo "... have fun!"
-  '';
+  ''
+  + (let
+    env = targets."${target}".environment;
+    envnames = builtins.attrNames env;
+    envslist = builtins.map (name: "export '${name}'=${env."${name}"}") envnames;
+    envs = builtins.concatStringsSep "\n" envslist;
+  in
+    envs
+  )
+  ;
 
   LIBCLANG_PATH   = "${pkgs.llvmPackages.libclang}/lib";
 } // targets."${target}".environment
