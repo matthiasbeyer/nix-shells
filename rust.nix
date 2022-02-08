@@ -82,8 +82,7 @@ let
       ];
 
       environment = {
-        CC_armv7-unknown-linux-musleabihf = "armv7l-unknown-linux-gnueabihf-gcc";
-        CC = "armv7l-unknown-linux-gnueabihf-gcc";
+        CC = "armv7l-unknown-linux-musleabihf-gcc";
       };
     };
 
