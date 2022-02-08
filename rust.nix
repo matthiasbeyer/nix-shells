@@ -21,10 +21,11 @@ let
 
   targets = {
     aarch64-unknown-linux-gnu = let
-      crossPkgs = mkCrossPkgs "aarch64-unknown-linux-gnu" "glibc";
+      triple = "aarch64-unknown-linux-gnu";
+      crossPkgs = mkCrossPkgs triple "glibc";
     in {
       targetPackages = [
-        (pkgs.rustChannels.stable.rust.override { targets = [ "aarch64-unknown-linux-gnu" ]; })
+        (pkgs.rustChannels.stable.rust.override { targets = [ triple ]; })
         crossPkgs.buildPackages.gcc
       ];
 
@@ -33,10 +34,11 @@ let
     };
 
     aarch64-unknown-linux-musl = let
-      crossPkgs = mkCrossPkgs "aarch64-unknown-linux-musl" "musl";
+      triple = "aarch64-unknown-linux-musl";
+      crossPkgs = mkCrossPkgs triple "musl";
     in {
       targetPackages = [
-        (pkgs.rustChannels.stable.rust.override { targets = [ "aarch64-unknown-linux-musl" ]; })
+        (pkgs.rustChannels.stable.rust.override { targets = [ triple ]; })
         crossPkgs.buildPackages.gcc
       ];
 
@@ -46,10 +48,11 @@ let
     };
 
     arm-unknown-linux-gnueabihf = let
-      crossPkgs = mkCrossPkgs "arm-unknown-linux-gnueabihf" "glibc";
+      triple = "arm-unknown-linux-gnueabihf";
+      crossPkgs = mkCrossPkgs triple "glibc";
     in {
       targetPackages = [
-        (pkgs.rustChannels.stable.rust.override { targets = [ "arm-unknown-linux-gnueabihf" ]; })
+        (pkgs.rustChannels.stable.rust.override { targets = [ triple ]; })
         crossPkgs.buildPackages.gcc
       ];
 
@@ -58,10 +61,11 @@ let
     };
 
     armv7-unknown-linux-gnu = let
-      crossPkgs = mkCrossPkgs "armv7l-unknown-linux-gnueabihf" "glibc";
+      triple = "armv7l-unknown-linux-gnueabihf";
+      crossPkgs = mkCrossPkgs triple "glibc";
     in {
       targetPackages = [
-        (pkgs.rustChannels.stable.rust.override { targets = [ "armv7-unknown-linux-gnueabihf" ]; })
+        (pkgs.rustChannels.stable.rust.override { targets = [ triple ]; })
         crossPkgs.buildPackages.gcc
       ];
 
@@ -72,10 +76,11 @@ let
     };
 
     armv7-unknown-linux-musleabihf = let
-      crossPkgs = mkCrossPkgs "armv7l-unknown-linux-musleabihf" "musl";
+      triple = "armv7l-unknown-linux-musleabihf";
+      crossPkgs = mkCrossPkgs triple "musl";
     in {
       targetPackages = [
-        (pkgs.rustChannels.stable.rust.override { targets = [ "armv7-unknown-linux-musleabihf" ]; })
+        (pkgs.rustChannels.stable.rust.override { targets = [ triple ]; })
         crossPkgs.buildPackages.gcc
       ];
 
