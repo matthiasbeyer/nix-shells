@@ -17,19 +17,40 @@ let
   };
 
   targets = {
-    aarch64-unknown-linux-gnu = {
+    aarch64-unknown-linux-gnu = let
+      crossPkgs = import <nixpkgs> {
+        overlays = [ moz_overlay ];
+        crossSystem = {
+          config = "aarch64-unknown-linux-gnu";
+          libc = "glibc";
+
+          rustc.config = "aarch64-unknown-linux-gnu";
+        };
+      };
+    in {
       rustPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "aarch64-unknown-linux-gnu" ]; })
+        crossPkgs.buildPackages.gcc
       ];
 
       environment = {
       };
     };
 
-    aarch64-unknown-linux-musl = {
+    aarch64-unknown-linux-musl = let
+      crossPkgs = import <nixpkgs> {
+        overlays = [ moz_overlay ];
+        crossSystem = {
+          config = "aarch64-unknown-linux-musl";
+          libc = "musl";
+
+          rustc.config = "aarch64-unknown-linux-musl";
+        };
+      };
+    in {
       rustPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "aarch64-unknown-linux-musl" ]; })
-        pkgs.pkgsCross.aarch64-multiplatform-musl.buildPackages.gcc
+        crossPkgs.buildPackages.gcc
       ];
 
       environment = {
@@ -37,19 +58,40 @@ let
       };
     };
 
-    arm-unknown-linux-gnueabihf = {
+    arm-unknown-linux-gnueabihf = let
+      crossPkgs = import <nixpkgs> {
+        overlays = [ moz_overlay ];
+        crossSystem = {
+          config = "arm-unknown-linux-gnueabihf";
+          libc = "glibc";
+
+          rustc.config = "arm-unknown-linux-gnueabihf";
+        };
+      };
+    in {
       rustPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "arm-unknown-linux-gnueabihf" ]; })
+        crossPkgs.buildPackages.gcc
       ];
 
       environment = {
       };
     };
 
-    armv7-unknown-linux-gnu = {
+    armv7-unknown-linux-gnu = let
+      crossPkgs = import <nixpkgs> {
+        overlays = [ moz_overlay ];
+        crossSystem = {
+          config = "armv7l-unknown-linux-gnueabihf";
+          libc = "glibc";
+
+          rustc.config = "armv7-unknown-linux-gnueabihf";
+        };
+      };
+    in {
       rustPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "armv7-unknown-linux-gnueabihf" ]; })
-        pkgs.pkgsCross.armv7l-hf-multiplatform.buildPackages.gcc
+        crossPkgs.buildPackages.gcc
       ];
 
       environment = {
@@ -58,14 +100,25 @@ let
       };
     };
 
-    armv7-unknown-linux-musleabihf = {
+    armv7-unknown-linux-musleabihf = let
+      crossPkgs = import <nixpkgs> {
+        overlays = [ moz_overlay ];
+        crossSystem = {
+          config = "armv7l-unknown-linux-musleabihf";
+          libc = "musl";
+
+          rustc.config = "armv7l-unknown-linux-musleabihf";
+        };
+      };
+    in {
       rustPackages = [
         (pkgs.rustChannels.stable.rust.override { targets = [ "armv7-unknown-linux-musleabihf" ]; })
-        pkgs.pkgsCross.armv7l-hf-multiplatform.buildPackages.gcc
+        crossPkgs.buildPackages.gcc
       ];
 
       environment = {
         CC_armv7-unknown-linux-musleabihf = "armv7l-unknown-linux-gnueabihf-gcc";
+        CC = "armv7l-unknown-linux-gnueabihf-gcc";
       };
     };
 
