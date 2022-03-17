@@ -90,7 +90,7 @@ let
       targetPackages = with (pkgs.rustChannelOf { inherit channel; }); [
         rust-std
         rust-src
-        rust
+        (rust.override { extensions = ["rust-src" ]; })
         rustc
         cargo
       ];
@@ -121,6 +121,8 @@ pkgs.mkShell {
   ]);
 
   shellHook = ''
+    export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
     echo " rustc: ''$(rustc --version)"
     echo " cargo: ''$(cargo --version)"
     echo "... have fun!"
