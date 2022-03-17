@@ -1,5 +1,6 @@
 { cargobins ? false
 , channel ? "stable"
+, stdlibs ? false
 , target ? "default"
 , ... }:
 
@@ -113,6 +114,10 @@ pkgs.mkShell {
     cargo-license
     cargo-modules
     cargo-outdated
+  ])
+  ++ (pkgs.lib.optionals stdlibs [
+    pkgs.openssl
+    pkgs.pkg-config
   ]);
 
   shellHook = ''
