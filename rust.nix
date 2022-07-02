@@ -121,6 +121,7 @@ pkgs.mkShell {
   ++ (pkgs.lib.optionals stdlibs [
     pkgs.openssl
     pkgs.pkg-config
+    pkgs.protobuf
   ]);
 
   shellHook = ''
