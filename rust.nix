@@ -115,6 +115,9 @@ pkgs.mkShell {
     cargo-modules
     cargo-outdated
   ])
+  ++ (pkgs.lib.optionals (cargobins && channel == "nightly") (with pkgs; [
+    cargo-udeps
+  ]))
   ++ (pkgs.lib.optionals stdlibs [
     pkgs.openssl
     pkgs.pkg-config
