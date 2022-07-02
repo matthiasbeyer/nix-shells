@@ -114,6 +114,7 @@ pkgs.mkShell {
     cargo-license
     cargo-modules
     cargo-outdated
+    cargo-llvm-lines
   ])
   ++ (pkgs.lib.optionals (cargobins && channel == "nightly") (with pkgs; [
     cargo-udeps
