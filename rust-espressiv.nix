@@ -14,18 +14,15 @@ let
     channel = "nightly";
     date = "2022-03-10";
   };
-
-  targetPackages = with channel; [
-    rust-std
-    rust-src
-    (rust.override { extensions = ["rust-src" ]; })
-    rustc
-    cargo
-  ];
-
 in
 pkgs.mkShell {
   buildInputs = with pkgs; [
+    channel.rust-std
+    channel.rust-src
+    (channel.rust.override { extensions = ["rust-src" ]; })
+    channel.rustc
+    channel.cargo
+
     cargo-audit
     cargo-bloat
     cargo-deny
