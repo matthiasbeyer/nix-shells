@@ -1,11 +1,17 @@
 { ... }:
 
 let
+
+  # TODO: I am ugly, make me nice
+  esp_overlay = let
+    src = import (builtins.fetchTarball https://github.com/mirrexagon/nixpkgs-esp-dev/archive/master.tar.gz);
+  in builtins.head src.overlays;
+
   moz_overlay = import (
     builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz
   );
 
-  pkgs = import <nixpkgs-unstable> { overlays = [ moz_overlay ]; };
+  pkgs = import <nixpkgs-unstable> { overlays = [ moz_overlay esp_overlay ]; };
 
   cargo-espflash = pkgs.callPackage ./cargo-espflash.nix { };
   ldproxy = pkgs.callPackage ./ldproxy.nix { };
@@ -22,6 +28,11 @@ pkgs.mkShell {
     (channel.rust.override { extensions = ["rust-src" ]; })
     channel.rustc
     channel.cargo
+
+    python3
+    python3Packages.pip
+    python3Packages.virtualenv
+    python3Packages.pathlib
 
     cargo-audit
     cargo-bloat
@@ -40,11 +51,25 @@ pkgs.mkShell {
     cargo-espflash
     ldproxy
 
-    llvm
-    libclang
+    wget
+    bison
     clang
+    cmake
+    esp-idf
+    esptool
+    flex
+    gcc-riscv32-esp32c3-elf-bin
+    git
+    gnumake
+    gperf
+    libclang
+    llvm
+    ncurses5
+    ninja
+    openocd-esp32-bin
     openssl
     pkg-config
+    pkgconfig
   ];
 
   shellHook = ''
