@@ -11,6 +11,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-CPMcFzfP/l1g04sBLWj2pY76F94mNsr1RGom1sfY23I=";
   };
 
+  buildAndTestSubdir = "ldproxy";
+
   nativeBuildInputs = [
     pkg-config
   ];
