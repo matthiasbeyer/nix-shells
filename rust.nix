@@ -104,6 +104,7 @@ pkgs.mkShell {
   ++ pkgs.lib.optionals cargobins (with pkgs; [
     cargo-audit
     cargo-bloat
+    cargo-crev
     cargo-deny
     cargo-depgraph
     cargo-deps
