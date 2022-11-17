@@ -93,9 +93,13 @@ let
         (rust.override { extensions = ["rust-src" ]; })
         rustc
         cargo
+
+        pkgs.llvmPackages.libclang.lib
       ];
 
-      environment = { };
+      environment = {
+        LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+      };
     };
   };
 in
@@ -116,6 +120,7 @@ pkgs.mkShell {
     cargo-modules
     cargo-outdated
     cargo-llvm-lines
+    grcov
   ])
   ++ (pkgs.lib.optionals (cargobins && channel == "nightly") (with pkgs; [
     cargo-udeps
@@ -140,9 +145,7 @@ pkgs.mkShell {
     envs = builtins.concatStringsSep "\n" envslist;
   in
     envs
-  )
-  ;
+  );
 
-  LIBCLANG_PATH   = "${pkgs.llvmPackages.libclang}/lib";
 } // targets."${target}".environment
 
